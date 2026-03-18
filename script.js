@@ -97,15 +97,22 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     btn.disabled = true;
     btn.style.opacity = '0.7';
 
+    // สร้าง JSON object จากข้อมูลในฟอร์ม
     const formData = new FormData(form);
+    const jsonData = {};
+    formData.forEach((value, key) => { jsonData[key] = value; });
 
     fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
     })
-    .then(response => {
-        if (response.ok) {
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
             btn.textContent = '✓ ส่งข้อมูลสำเร็จ!';
             btn.style.background = 'linear-gradient(135deg, #22C55E, #16A34A)';
             btn.style.opacity = '1';
@@ -116,10 +123,11 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
                 btn.disabled = false;
             }, 4000);
         } else {
-            throw new Error('Server error');
+            throw new Error(data.message || 'Server error');
         }
     })
     .catch(error => {
+        console.error('Form error:', error);
         btn.textContent = '✗ เกิดข้อผิดพลาด ลองอีกครั้ง';
         btn.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
         btn.style.opacity = '1';
