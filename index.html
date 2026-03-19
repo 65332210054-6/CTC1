@@ -8,18 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <script src="translations.js?v=2"></script>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#home" class="logo">
                 <span class="logo-icon">
                     <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
                         <rect width="36" height="36" rx="8" fill="url(#logo-grad)"/>
@@ -35,13 +36,21 @@
                 <span class="logo-text">CTC <span class="logo-accent">Webdesign</span></span>
             </a>
             <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link active">หน้าแรก</a>
-                <a href="#services" class="nav-link">บริการ</a>
-                <a href="#portfolio" class="nav-link">ผลงาน</a>
-                <a href="#about" class="nav-link">เกี่ยวกับเรา</a>
-                <a href="#contact" class="nav-link">ติดต่อ</a>
+                <a href="#home" class="nav-link active" data-i18n="nav_home">หน้าแรก</a>
+                <a href="#services" class="nav-link" data-i18n="nav_services">บริการ</a>
+                <a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">ผลงาน</a>
+                <a href="#about" class="nav-link" data-i18n="nav_about">เกี่ยวกับเรา</a>
+                <a href="#contact" class="nav-link" data-i18n="nav_contact">ติดต่อ</a>
             </div>
-            <a href="#contact" class="btn btn-primary nav-cta">ขอใบเสนอราคา</a>
+            
+            <div class="nav-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="th">TH</button>
+                    <span class="lang-separator">|</span>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="#contact" class="btn btn-primary nav-cta" data-i18n="nav_cta">ขอใบเสนอราคา</a>
+            </div>
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
@@ -57,38 +66,38 @@
         </div>
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="hero-badge">
+                <div class="hero-badge" data-i18n="hero_badge">
                     <span class="badge-dot"></span>
                     พร้อมให้บริการ — Web Design & Development
                 </div>
                 <h1 class="hero-title">
-                    สร้างเว็บไซต์ที่<br>
-                    <span class="gradient-text">โดดเด่น</span> และ <span class="gradient-text">ทรงพลัง</span>
+                    <span data-i18n="hero_title_1">สร้างเว็บไซต์ที่</span><br>
+                    <span class="gradient-text" data-i18n="hero_title_2">โดดเด่น</span> <span data-i18n="hero_title_3"> และ </span> <span class="gradient-text" data-i18n="hero_title_4">ทรงพลัง</span>
                 </h1>
-                <p class="hero-subtitle">
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
                     CTC Webdesign บริการออกแบบและพัฒนาเว็บไซต์ครบวงจร ตอบโจทย์ทุกธุรกิจ ด้วยดีไซน์ที่ทันสมัย ระบบที่มั่นคง และประสบการณ์ผู้ใช้ที่ยอดเยี่ยม
                 </p>
                 <div class="hero-actions">
                     <a href="#contact" class="btn btn-primary btn-lg">
-                        <span>เริ่มต้นโปรเจกต์</span>
+                        <span data-i18n="hero_start">เริ่มต้นโปรเจกต์</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="#portfolio" class="btn btn-outline btn-lg">ดูผลงาน</a>
+                    <a href="#portfolio" class="btn btn-outline btn-lg" data-i18n="hero_view_work">ดูผลงาน</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number" data-count="150">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">โปรเจกต์สำเร็จ</span>
+                        <span class="stat-label" data-i18n="stat_projects">โปรเจกต์สำเร็จ</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
                         <span class="stat-number" data-count="120">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">ลูกค้าเชื่อมั่น</span>
+                        <span class="stat-label" data-i18n="stat_clients">ลูกค้าเชื่อมั่น</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
                         <span class="stat-number" data-count="8">0</span>
-                        <span class="stat-label">ปีประสบการณ์</span>
+                        <span class="stat-label" data-i18n="stat_years">ปีประสบการณ์</span>
                     </div>
                 </div>
             </div>
@@ -99,15 +108,15 @@
                 <div class="hero-float-card card-1">
                     <div class="float-icon">🚀</div>
                     <div>
-                        <span class="float-title">โหลดเร็ว</span>
-                        <span class="float-desc">99 Performance Score</span>
+                        <span class="float-title" data-i18n="float_fast_title">โหลดเร็ว</span>
+                        <span class="float-desc" data-i18n="float_fast_desc">99 Performance Score</span>
                     </div>
                 </div>
                 <div class="hero-float-card card-2">
                     <div class="float-icon">📱</div>
                     <div>
-                        <span class="float-title">Responsive</span>
-                        <span class="float-desc">ทุกอุปกรณ์</span>
+                        <span class="float-title" data-i18n="float_resp_title">Responsive</span>
+                        <span class="float-desc" data-i18n="float_resp_desc">ทุกอุปกรณ์</span>
                     </div>
                 </div>
             </div>
@@ -118,59 +127,59 @@
     <section class="services" id="services">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">บริการของเรา</span>
-                <h2 class="section-title">โซลูชันครบวงจร<br>สำหรับ<span class="gradient-text">ทุกธุรกิจ</span></h2>
-                <p class="section-desc">เราให้บริการตั้งแต่การวางแผน ออกแบบ พัฒนา ไปจนถึงการดูแลระบบหลังเปิดใช้งาน</p>
+                <span class="section-tag" data-i18n="services_tag">บริการของเรา</span>
+                <h2 class="section-title"><span data-i18n="services_title_1">โซลูชันครบวงจร<br>สำหรับ</span><span class="gradient-text" data-i18n="services_title_2">ทุกธุรกิจ</span></h2>
+                <p class="section-desc" data-i18n="services_desc">เราให้บริการตั้งแต่การวางแผน ออกแบบ พัฒนา ไปจนถึงการดูแลระบบหลังเปิดใช้งาน</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
                     </div>
-                    <h3>ออกแบบเว็บไซต์</h3>
-                    <p>ดีไซน์สวยงาม ทันสมัย ตรงตามแบรนด์ของคุณ ด้วย UI/UX ที่ใช้งานง่าย สร้างความประทับใจแรก</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_design_title">ออกแบบเว็บไซต์</h3>
+                    <p data-i18n="service_design_desc">ดีไซน์สวยงาม ทันสมัย ตรงตามแบรนด์ของคุณ ด้วย UI/UX ที่ใช้งานง่าย สร้างความประทับใจแรก</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
                 <div class="service-card featured">
-                    <div class="service-badge">ยอดนิยม</div>
+                    <div class="service-badge" data-i18n="service_popular">ยอดนิยม</div>
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     </div>
-                    <h3>พัฒนาเว็บไซต์</h3>
-                    <p>เขียนโค้ดคุณภาพสูง โหลดเร็ว SEO-friendly รองรับทุกอุปกรณ์ ด้วยเทคโนโลยีที่ทันสมัย</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_dev_title">พัฒนาเว็บไซต์</h3>
+                    <p data-i18n="service_dev_desc">เขียนโค้ดคุณภาพสูง โหลดเร็ว SEO-friendly รองรับทุกอุปกรณ์ ด้วยเทคโนโลยีที่ทันสมัย</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                     </div>
-                    <h3>ระบบ E-Commerce</h3>
-                    <p>สร้างร้านค้าออนไลน์ครบวงจร ระบบตะกร้าสินค้า ชำระเงิน จัดการสต็อก รายงานยอดขาย</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_ecommerce_title">ระบบ E-Commerce</h3>
+                    <p data-i18n="service_ecommerce_desc">สร้างร้านค้าออนไลน์ครบวงจร ระบบตะกร้าสินค้า ชำระเงิน จัดการสต็อก รายงานยอดขาย</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
                     </div>
-                    <h3>SEO & การตลาด</h3>
-                    <p>เพิ่มอันดับบน Google ด้วย SEO ที่แข็งแกร่ง วิเคราะห์คำค้น เพิ่ม Traffic และอัตรา Conversion</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_seo_title">SEO & การตลาด</h3>
+                    <p data-i18n="service_seo_desc">เพิ่มอันดับบน Google ด้วย SEO ที่แข็งแกร่ง วิเคราะห์คำค้น เพิ่ม Traffic และอัตรา Conversion</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
                     </div>
-                    <h3>Responsive Design</h3>
-                    <p>เว็บไซต์ที่แสดงผลสวยงามบนทุกหน้าจอ ไม่ว่าจะเป็นมือถือ แท็บเล็ต หรือคอมพิวเตอร์</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_resp_title">Responsive Design</h3>
+                    <p data-i18n="service_resp_desc">เว็บไซต์ที่แสดงผลสวยงามบนทุกหน้าจอ ไม่ว่าจะเป็นมือถือ แท็บเล็ต หรือคอมพิวเตอร์</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
-                    <h3>ดูแลและบำรุงรักษา</h3>
-                    <p>บริการดูแลเว็บไซต์หลังส่งมอบ อัพเดทเนื้อหา แก้ไขบั๊ก สำรองข้อมูล และรักษาความปลอดภัย</p>
-                    <a href="#contact" class="service-link">เรียนรู้เพิ่มเติม →</a>
+                    <h3 data-i18n="service_maint_title">ดูแลและบำรุงรักษา</h3>
+                    <p data-i18n="service_maint_desc">บริการดูแลเว็บไซต์หลังส่งมอบ อัพเดทเนื้อหา แก้ไขบั๊ก สำรองข้อมูล และรักษาความปลอดภัย</p>
+                    <a href="#contact" class="service-link" data-i18n="service_link">เรียนรู้เพิ่มเติม →</a>
                 </div>
             </div>
         </div>
@@ -180,9 +189,9 @@
     <section class="portfolio" id="portfolio">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">ผลงานของเรา</span>
-                <h2 class="section-title">ผลงานที่เรา<span class="gradient-text">ภาคภูมิใจ</span></h2>
-                <p class="section-desc">ตัวอย่างผลงานเว็บไซต์ที่เราได้ออกแบบและพัฒนาให้ลูกค้าหลากหลายธุรกิจ</p>
+                <span class="section-tag" data-i18n="portfolio_tag">ผลงานของเรา</span>
+                <h2 class="section-title"><span data-i18n="portfolio_title_1">ผลงานที่เรา</span><span class="gradient-text" data-i18n="portfolio_title_2">ภาคภูมิใจ</span></h2>
+                <p class="section-desc" data-i18n="portfolio_desc">ตัวอย่างผลงานเว็บไซต์ที่เราได้ออกแบบและพัฒนาให้ลูกค้าหลากหลายธุรกิจ</p>
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-card">
@@ -223,37 +232,37 @@
     <section class="process" id="process">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">ขั้นตอนการทำงาน</span>
-                <h2 class="section-title">กระบวนการทำงาน<span class="gradient-text">เป็นระบบ</span></h2>
-                <p class="section-desc">เราทำงานอย่างเป็นขั้นตอน มีระบบ เพื่อให้ได้ผลลัพธ์ที่ดีที่สุด</p>
+                <span class="section-tag" data-i18n="process_tag">ขั้นตอนการทำงาน</span>
+                <h2 class="section-title"><span data-i18n="process_title_1">กระบวนการทำงาน</span><span class="gradient-text" data-i18n="process_title_2">เป็นระบบ</span></h2>
+                <p class="section-desc" data-i18n="process_desc">เราทำงานอย่างเป็นขั้นตอน มีระบบ เพื่อให้ได้ผลลัพธ์ที่ดีที่สุด</p>
             </div>
             <div class="process-timeline">
                 <div class="process-step">
                     <div class="step-number">01</div>
                     <div class="step-content">
-                        <h3>วิเคราะห์ & วางแผน</h3>
-                        <p>ศึกษาธุรกิจ เป้าหมาย และกลุ่มเป้าหมายของคุณ เพื่อวางแผนโครงสร้างเว็บที่เหมาะสม</p>
+                        <h3 data-i18n="process_step1_title">วิเคราะห์ & วางแผน</h3>
+                        <p data-i18n="process_step1_desc">ศึกษาธุรกิจ เป้าหมาย และกลุ่มเป้าหมายของคุณ เพื่อวางแผนโครงสร้างเว็บที่เหมาะสม</p>
                     </div>
                 </div>
                 <div class="process-step">
                     <div class="step-number">02</div>
                     <div class="step-content">
-                        <h3>ออกแบบ UI/UX</h3>
-                        <p>ออกแบบ Wireframe และ Mockup ที่สวยงาม ใช้งานง่าย ก่อนเริ่มพัฒนาจริง</p>
+                        <h3 data-i18n="process_step2_title">ออกแบบ UI/UX</h3>
+                        <p data-i18n="process_step2_desc">ออกแบบ Wireframe และ Mockup ที่สวยงาม ใช้งานง่าย ก่อนเริ่มพัฒนาจริง</p>
                     </div>
                 </div>
                 <div class="process-step">
                     <div class="step-number">03</div>
                     <div class="step-content">
-                        <h3>พัฒนา & ทดสอบ</h3>
-                        <p>เขียนโค้ดคุณภาพสูง ทดสอบทุกฟังก์ชัน ทุกอุปกรณ์ ให้มั่นใจในคุณภาพ</p>
+                        <h3 data-i18n="process_step3_title">พัฒนา & ทดสอบ</h3>
+                        <p data-i18n="process_step3_desc">เขียนโค้ดคุณภาพสูง ทดสอบทุกฟังก์ชัน ทุกอุปกรณ์ ให้มั่นใจในคุณภาพ</p>
                     </div>
                 </div>
                 <div class="process-step">
                     <div class="step-number">04</div>
                     <div class="step-content">
-                        <h3>เปิดตัว & ดูแล</h3>
-                        <p>เปิดตัวเว็บไซต์ พร้อมบริการดูแลหลังส่งมอบ อัพเดทและปรับปรุงอย่างต่อเนื่อง</p>
+                        <h3 data-i18n="process_step4_title">เปิดตัว & ดูแล</h3>
+                        <p data-i18n="process_step4_desc">เปิดตัวเว็บไซต์ พร้อมบริการดูแลหลังส่งมอบ อัพเดทและปรับปรุงอย่างต่อเนื่อง</p>
                     </div>
                 </div>
             </div>
@@ -267,9 +276,9 @@
                 <img src="images/team.webp" alt="CTC Webdesign Team" loading="lazy">
             </div>
             <div class="about-content">
-                <span class="section-tag">เกี่ยวกับเรา</span>
-                <h2 class="section-title left-align">ทีมงานมืออาชีพ<br><span class="gradient-text">พร้อมดูแลคุณ</span></h2>
-                <p class="about-desc">
+                <span class="section-tag" data-i18n="about_tag">เกี่ยวกับเรา</span>
+                <h2 class="section-title left-align"><span data-i18n="about_title_1">ทีมงานมืออาชีพ</span><br><span class="gradient-text" data-i18n="about_title_2">พร้อมดูแลคุณ</span></h2>
+                <p class="about-desc" data-i18n="about_desc">
                     CTC Webdesign เป็นทีมนักออกแบบและนักพัฒนาเว็บไซต์ที่มีประสบการณ์มากกว่า 8 ปี เราเชื่อว่าเว็บไซต์ที่ดีต้องไม่เพียงแค่สวย แต่ต้องสร้างผลลัพธ์ทางธุรกิจได้จริง
                 </p>
                 <div class="about-features">
@@ -277,28 +286,28 @@
                         <div class="feature-check">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.67 5L7.5 14.17 3.33 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
-                        <span>ทีมงานผู้เชี่ยวชาญเฉพาะทาง</span>
+                        <span data-i18n="about_f1">ทีมงานผู้เชี่ยวชาญเฉพาะทาง</span>
                     </div>
                     <div class="about-feature">
                         <div class="feature-check">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.67 5L7.5 14.17 3.33 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
-                        <span>ใช้เทคโนโลยีที่ทันสมัย</span>
+                        <span data-i18n="about_f2">ใช้เทคโนโลยีที่ทันสมัย</span>
                     </div>
                     <div class="about-feature">
                         <div class="feature-check">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.67 5L7.5 14.17 3.33 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
-                        <span>ส่งมอบงานตรงเวลา</span>
+                        <span data-i18n="about_f3">ส่งมอบงานตรงเวลา</span>
                     </div>
                     <div class="about-feature">
                         <div class="feature-check">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.67 5L7.5 14.17 3.33 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
-                        <span>ดูแลหลังการขายตลอดอายุสัญญา</span>
+                        <span data-i18n="about_f4">ดูแลหลังการขายตลอดอายุสัญญา</span>
                     </div>
                 </div>
-                <a href="#contact" class="btn btn-primary btn-lg">พูดคุยกับเรา</a>
+                <a href="#contact" class="btn btn-primary btn-lg" data-i18n="contact_btn">พูดคุยกับเรา</a>
             </div>
         </div>
     </section>
@@ -307,8 +316,8 @@
     <section class="testimonials">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">รีวิวจากลูกค้า</span>
-                <h2 class="section-title">ลูกค้าพูดถึงเรา<span class="gradient-text">อย่างไร</span></h2>
+                <span class="section-tag" data-i18n="testimonials_tag">รีวิวจากลูกค้า</span>
+                <h2 class="section-title"><span data-i18n="testimonials_title_1">ลูกค้าพูดถึงเรา</span><span class="gradient-text" data-i18n="testimonials_title_2">อย่างไร</span></h2>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -352,11 +361,11 @@
     <section class="cta">
         <div class="container">
             <div class="cta-card">
-                <h2>พร้อมสร้างเว็บไซต์<br>ที่จะพาธุรกิจคุณ<span class="gradient-text">เติบโต</span>?</h2>
-                <p>ติดต่อเราวันนี้ รับคำปรึกษาฟรี พร้อมใบเสนอราคา ไม่มีค่าใช้จ่ายเพิ่มเติม</p>
+                <h2><span data-i18n="cta_title_1">พร้อมสร้างเว็บไซต์ที่จะพาธุรกิจคุณ</span><span class="gradient-text" data-i18n="cta_title_2">เติบโต</span>?</h2>
+                <p data-i18n="cta_subtitle">ติดต่อเราวันนี้ รับคำปรึกษาฟรี พร้อมใบเสนอราคา ไม่มีค่าใช้จ่ายเพิ่มเติม</p>
                 <div class="cta-actions">
-                    <a href="tel:0610282356" class="btn btn-white btn-lg">ขอใบเสนอราคาฟรี</a>
-                    <a href="tel:0610282356" class="btn btn-outline-white btn-lg">📞 โทรหาเรา</a>
+                    <a href="tel:0610282356" class="btn btn-white btn-lg" data-i18n="cta_btn_quote">ขอใบเสนอราคาฟรี</a>
+                    <a href="tel:0610282356" class="btn btn-outline-white btn-lg" data-i18n="cta_btn_call">📞 โทรหาเรา</a>
                 </div>
             </div>
         </div>
@@ -366,9 +375,9 @@
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">ติดต่อเรา</span>
-                <h2 class="section-title">เริ่มต้น<span class="gradient-text">โปรเจกต์</span>ของคุณ</h2>
-                <p class="section-desc">กรอกข้อมูลด้านล่าง เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
+                <span class="section-tag" data-i18n="contact_tag">ติดต่อเรา</span>
+                <h2 class="section-title"><span data-i18n="contact_title_1">เริ่มต้น</span><span class="gradient-text" data-i18n="contact_title_2">โปรเจกต์</span><span data-i18n="contact_title_3">ของคุณ</span></h2>
+                <p class="section-desc" data-i18n="contact_desc">กรอกข้อมูลด้านล่าง เราจะติดต่อกลับภายใน 24 ชั่วโมง</p>
             </div>
             <div class="contact-wrapper">
                 <div class="contact-info">
@@ -377,7 +386,7 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
                         </div>
                         <div>
-                            <strong>โทรศัพท์</strong>
+                            <strong data-i18n="contact_info_phone">โทรศัพท์</strong>
                             <span>061-028-2356</span>
                         </div>
                     </div>
@@ -386,7 +395,7 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                         </div>
                         <div>
-                            <strong>อีเมล</strong>
+                            <strong data-i18n="contact_info_email">อีเมล</strong>
                             <span>contact@ctcwebdesign.com</span>
                         </div>
                     </div>
@@ -395,8 +404,8 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         </div>
                         <div>
-                            <strong>ที่อยู่</strong>
-                            <span>กรุงเทพมหานคร, ประเทศไทย</span>
+                            <strong data-i18n="contact_info_address">ที่อยู่</strong>
+                            <span data-i18n="contact_info_address_text">กรุงเทพมหานคร, ประเทศไทย</span>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -404,8 +413,8 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
                         </div>
                         <div>
-                            <strong>เวลาทำการ</strong>
-                            <span>จันทร์ - ศุกร์: 09:00 - 18:00</span>
+                            <strong data-i18n="contact_info_hours">เวลาทำการ</strong>
+                            <span data-i18n="contact_info_hours_text">จันทร์ - ศุกร์: 09:00 - 18:00</span>
                         </div>
                     </div>
                 </div>
@@ -415,35 +424,35 @@
                     <input type="hidden" name="_captcha" value="false">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">ชื่อ-นามสกุล</label>
-                            <input type="text" id="name" name="name" placeholder="กรอกชื่อของคุณ" required>
+                            <label for="name" data-i18n="form_name">ชื่อ-นามสกุล</label>
+                            <input type="text" id="name" name="name" placeholder="กรอกชื่อของคุณ" data-i18n="form_name_placeholder" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">อีเมล</label>
-                            <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                            <label for="email" data-i18n="form_email">อีเมล</label>
+                            <input type="email" id="email" name="email" placeholder="email@example.com" data-i18n="form_email_placeholder" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="phone">เบอร์โทรศัพท์</label>
-                            <input type="tel" id="phone" name="phone" placeholder="061-xxx-xxxx">
+                            <label for="phone" data-i18n="form_phone">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="phone" name="phone" placeholder="061-xxx-xxxx" data-i18n="form_phone_placeholder">
                         </div>
                         <div class="form-group">
-                            <label for="budget">งบประมาณ</label>
+                            <label for="budget" data-i18n="form_budget">งบประมาณ</label>
                             <select id="budget" name="budget">
-                                <option value="">เลือกงบประมาณ</option>
-                                <option value="10000-30000">10,000 - 30,000 บาท</option>
-                                <option value="30000-50000">30,000 - 50,000 บาท</option>
-                                <option value="50000-100000">50,000 - 100,000 บาท</option>
-                                <option value="100000+">100,000+ บาท</option>
+                                <option value="" data-i18n="form_budget_opt">เลือกงบประมาณ</option>
+                                <option value="10000-30000" data-i18n="form_budget_1">10,000 - 30,000 บาท</option>
+                                <option value="30000-50000" data-i18n="form_budget_2">30,000 - 50,000 บาท</option>
+                                <option value="50000-100000" data-i18n="form_budget_3">50,000 - 100,000 บาท</option>
+                                <option value="100000+" data-i18n="form_budget_4">100,000+ บาท</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="message">รายละเอียดโปรเจกต์</label>
-                        <textarea id="message" name="message" rows="4" placeholder="บอกรายละเอียดเกี่ยวกับโปรเจกต์ของคุณ..." required></textarea>
+                        <label for="message" data-i18n="form_message">รายละเอียดโปรเจกต์</label>
+                        <textarea id="message" name="message" rows="4" placeholder="บอกรายละเอียดเกี่ยวกับโปรเจกต์ของคุณ..." data-i18n="form_message_placeholder" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-full">ส่งข้อมูล</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-full" data-i18n="form_submit">ส่งข้อมูล</button>
                 </form>
             </div>
         </div>
@@ -454,7 +463,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
+                    <a href="#home" class="logo">
                         <span class="logo-icon">
                             <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
                                 <rect width="36" height="36" rx="8" fill="url(#logo-grad2)"/>
@@ -469,21 +478,21 @@
                         </span>
                         <span class="logo-text">CTC <span class="logo-accent">Webdesign</span></span>
                     </a>
-                    <p>บริการรับออกแบบและพัฒนาเว็บไซต์ครบวงจร ด้วยทีมงานมืออาชีพ</p>
+                    <p data-i18n="footer_desc">บริการรับออกแบบและพัฒนาเว็บไซต์ครบวงจร ด้วยทีมงานมืออาชีพ</p>
                 </div>
                 <div class="footer-links">
-                    <h3>บริการ</h3>
-                    <a href="#services">ออกแบบเว็บไซต์</a>
-                    <a href="#services">พัฒนาเว็บไซต์</a>
-                    <a href="#services">E-Commerce</a>
-                    <a href="#services">SEO & การตลาด</a>
+                    <h4 data-i18n="footer_services">บริการ</h4>
+                    <a href="#services" data-i18n="service_design_title">ออกแบบเว็บไซต์</a>
+                    <a href="#services" data-i18n="service_dev_title">พัฒนาเว็บไซต์</a>
+                    <a href="#services" data-i18n="service_ecommerce_title">E-Commerce</a>
+                    <a href="#services" data-i18n="service_seo_title">SEO & การตลาด</a>
                 </div>
                 <div class="footer-links">
-                    <h3>เมนู</h3>
-                    <a href="#home">หน้าแรก</a>
-                    <a href="#portfolio">ผลงาน</a>
-                    <a href="#about">เกี่ยวกับเรา</a>
-                    <a href="#contact">ติดต่อ</a>
+                    <h4 data-i18n="footer_menu">เมนู</h4>
+                    <a href="#home" data-i18n="nav_home">หน้าแรก</a>
+                    <a href="#portfolio" data-i18n="nav_portfolio">ผลงาน</a>
+                    <a href="#about" data-i18n="nav_about">เกี่ยวกับเรา</a>
+                    <a href="#contact" data-i18n="nav_contact">ติดต่อ</a>
                 </div>
                 <div class="footer-links">
                     <h3>ติดตามเรา</h3>
@@ -506,11 +515,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 CTC Webdesign. All rights reserved.</p>
+                <p data-i18n="footer_rights">© 2026 CTC Webdesign. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
 </html>

@@ -1,3 +1,41 @@
+// ===== Language Switcher =====
+const langBtns = document.querySelectorAll('.lang-btn');
+const translatableElements = document.querySelectorAll('[data-i18n]');
+
+function updateLanguage(lang) {
+    translatableElements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            // Check if it's an input or textarea (for placeholders)
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[lang][key];
+            } else {
+                el.textContent = translations[lang][key];
+            }
+        }
+    });
+
+    // Update active button state
+    langBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Save preference
+    localStorage.setItem('preferredLang', lang);
+    document.documentElement.lang = lang;
+}
+
+langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        updateLanguage(lang);
+    });
+});
+
+// Initialize language
+const savedLang = localStorage.getItem('preferredLang') || 'th';
+updateLanguage(savedLang);
+
 // ===== Navbar Scroll Effect =====
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -91,9 +129,10 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const form = this;
     const btn = form.querySelector('button[type="submit"]');
+    const lang = localStorage.getItem('preferredLang') || 'th';
     const originalText = btn.textContent;
     
-    btn.textContent = 'กำลังส่ง...';
+    btn.textContent = lang === 'en' ? 'Sending...' : 'กำลังส่ง...';
     btn.disabled = true;
     btn.style.opacity = '0.7';
 
@@ -113,7 +152,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            btn.textContent = '✓ ส่งข้อมูลสำเร็จ!';
+            btn.textContent = lang === 'en' ? '✓ Success!' : '✓ ส่งข้อมูลสำเร็จ!';
             btn.style.background = 'linear-gradient(135deg, #22C55E, #16A34A)';
             btn.style.opacity = '1';
             form.reset();
@@ -128,7 +167,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     })
     .catch(error => {
         console.error('Form error:', error);
-        btn.textContent = '✗ เกิดข้อผิดพลาด ลองอีกครั้ง';
+        btn.textContent = lang === 'en' ? '✗ Error, try again' : '✗ เกิดข้อผิดพลาด ลองอีกครั้ง';
         btn.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
         btn.style.opacity = '1';
         setTimeout(() => {
