@@ -1,4 +1,10 @@
-<svg width="32" height="32" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-    <rect width="36" height="36" rx="8" fill="#2563EB"/>
-    <path d="M10 18C10 13.58 13.58 10 18 10C20.21 10 22.21 10.9 23.66 12.34L21.83 14.17C20.88 13.22 19.52 12.67 18 12.67C15.06 12.67 12.67 15.06 12.67 18C12.67 20.94 15.06 23.33 18 23.33C20.42 23.33 22.47 21.67 23.07 19.33H18V16.67H26V18C26 22.42 22.42 26 18 26C13.58 26 10 22.42 10 18Z" fill="white"/>
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bg-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2563EB"/>
+            <stop offset="1" stop-color="#0EA5E9"/>
+        </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="10" fill="url(#bg-grad)"/>
+    <text x="24" y="26" font-family="Arial, sans-serif" font-weight="900" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">CTC</text>
 </svg>
