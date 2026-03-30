@@ -122,6 +122,8 @@ const translations = {
         "portfolio_gym_desc": "เว็บไซต์ฟิตเนสสมัยใหม่ พร้อมระบบตารางเรียนและข้อมูลบริการ",
         "portfolio_cafe_title": "Artisanal Cafe",
         "portfolio_cafe_desc": "เว็บไซต์ร้านกาแฟสไตล์มินิมอล พร้อมเมนูอาหารและบรรยากาศร้าน",
+        "portfolio_itsm_title": "IT Management System",
+        "portfolio_itsm_desc": "ระบบบริหารจัดการไอที (ITSM Admin) สำหรับองค์กร พร้อมระบบจัดการข้อมูลพนักงานและสิทธิ์การใช้งาน",
         "portfolio_view_project": "ดูโปรเจกต์จริง →"
     },
     en: {
@@ -247,6 +249,8 @@ const translations = {
         "portfolio_gym_desc": "Modern fitness website with class schedules and service info.",
         "portfolio_cafe_title": "Artisanal Cafe",
         "portfolio_cafe_desc": "Minimalist cafe website with menu and atmosphere showcase.",
+        "portfolio_itsm_title": "IT Management System",
+        "portfolio_itsm_desc": "IT Service Management (ITSM Admin) for organizations, featuring employee data and access control.",
         "portfolio_view_project": "View Live Project →"
     }
 };
