@@ -177,3 +177,24 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         }, 3000);
     });
 });
+
+// ===== Cookie Consent Banner =====
+document.addEventListener('DOMContentLoaded', () => {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+    
+    if (cookieBanner && acceptBtn) {
+        // Check if user has already accepted
+        if (!localStorage.getItem('cookiesAccepted')) {
+            // Delay showing the banner for a better UX
+            setTimeout(() => {
+                cookieBanner.classList.remove('hidden');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.add('hidden');
+        });
+    }
+});
