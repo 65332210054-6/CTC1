@@ -184,6 +184,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     
+    // Check if user has already accepted previously
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+        if(typeof gtag === 'function') {
+            gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+        }
+    }
+
     if (cookieBanner && acceptBtn) {
         // Check if user has already accepted
         if (!localStorage.getItem('cookiesAccepted')) {
@@ -196,6 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
         acceptBtn.addEventListener('click', () => {
             localStorage.setItem('cookiesAccepted', 'true');
             cookieBanner.classList.add('hidden');
+            
+            // Update GA consent when accepted
+            if(typeof gtag === 'function') {
+                gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted',
+                    'analytics_storage': 'granted'
+                });
+            }
         });
     }
 });
