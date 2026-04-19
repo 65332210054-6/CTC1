@@ -6,9 +6,10 @@ function updateLanguage(lang) {
     translatableElements.forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-            // Check if it's an input or textarea (for placeholders)
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[lang][key];
+            } else if (el.tagName === 'META' && el.name === 'description') {
+                el.content = translations[lang][key];
             } else {
                 el.textContent = translations[lang][key];
             }

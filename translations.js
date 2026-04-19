@@ -6,6 +6,8 @@ const translations = {
         "nav_about": "เกี่ยวกับเรา",
         "nav_contact": "ติดต่อ",
         "nav_cta": "ขอใบเสนอราคา",
+        "site_title": "CTC Webdesign — รับออกแบบและพัฒนาเว็บไซต์มืออาชีพ",
+        "site_desc": "CTC Webdesign บริการรับออกแบบและพัฒนาเว็บไซต์ครบวงจร ดีไซน์สวย ทันสมัย ราคาเป็นมิตร พร้อมดูแลหลังการขาย",
         "hero_badge": "พร้อมให้บริการ — Web Design & Development",
         "hero_title_1": "สร้างเว็บไซต์ที่",
         "hero_title_2": "โดดเด่น",
@@ -127,7 +129,14 @@ const translations = {
         "portfolio_cafe_desc": "เว็บไซต์ร้านกาแฟสไตล์มินิมอล พร้อมเมนูอาหารและบรรยากาศร้าน",
         "portfolio_itsm_title": "IT Management System",
         "portfolio_itsm_desc": "ระบบบริหารจัดการไอที (ITSM Admin) สำหรับองค์กร พร้อมระบบจัดการข้อมูลพนักงานและสิทธิ์การใช้งาน",
-        "portfolio_view_project": "ดูโปรเจกต์จริง →"
+        "portfolio_view_project": "ดูโปรเจกต์จริง →",
+        "back_to_home": "กลับเข้าสู่หน้าหลัก",
+        "testimonial_1_text": "\"ทีม CTC ทำงานเร็ว สื่อสารดี เว็บที่ได้สวยมาก ลูกค้าเราชอบกันมาก ยอดขายเพิ่มขึ้น 40% หลังเปิดตัวเว็บใหม่\"",
+        "testimonial_1_author": "คุณสมชาย กิจเจริญ",
+        "testimonial_2_text": "\"ประทับใจมากครับ ทีมงานใส่ใจทุกรายละเอียด มีการอัพเดทความคืบหน้าตลอด แนะนำเลย\"",
+        "testimonial_2_author": "คุณธนากร รักธรรม",
+        "testimonial_3_text": "\"ช่วยวางแผน SEO และทำเว็บให้ติดอันดับ Google ได้จริง ทีมงาน CTC ทำงานเป็นระบบมากครับ\"",
+        "testimonial_3_author": "คุณวรวุฒิ นามสมบูรณ์"
     },
     en: {
         "nav_home": "Home",
@@ -136,6 +145,8 @@ const translations = {
         "nav_about": "About",
         "nav_contact": "Contact",
         "nav_cta": "Get a Quote",
+        "site_title": "CTC Webdesign — Professional Web Design & Development",
+        "site_desc": "CTC Webdesign offers comprehensive web design and development. Beautiful, modern designs at friendly prices with post-launch care.",
         "hero_badge": "Ready to Serve — Web Design & Development",
         "hero_title_1": "Build Websites that are",
         "hero_title_2": "Outstanding",
@@ -257,6 +268,13 @@ const translations = {
         "portfolio_cafe_desc": "Minimalist cafe website with menu and atmosphere showcase.",
         "portfolio_itsm_title": "IT Management System",
         "portfolio_itsm_desc": "IT Service Management (ITSM Admin) for organizations, featuring employee data and access control.",
-        "portfolio_view_project": "View Live Project →"
+        "portfolio_view_project": "View Live Project →",
+        "back_to_home": "Back to Home",
+        "testimonial_1_text": "\"The CTC team works fast and communicates well. The website is beautiful, our customers love it, and our sales increased by 40% after the launch.\"",
+        "testimonial_1_author": "Somchai Kitcharoen",
+        "testimonial_2_text": "\"Very impressed! The team pays attention to every detail, providing constant updates throughout. Highly recommended.\"",
+        "testimonial_2_author": "Thanakorn Raktham",
+        "testimonial_3_text": "\"They helped with SEO and got our site on Google for real. The CTC team is very systematic.\"",
+        "testimonial_3_author": "Worawut Namsomboon"
     }
 };
