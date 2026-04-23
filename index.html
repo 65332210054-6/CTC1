@@ -255,54 +255,27 @@
                 <p class="section-desc" data-i18n="portfolio_desc">
                     ตัวอย่างผลงานเว็บไซต์ที่เราได้ออกแบบและพัฒนาให้ลูกค้าหลากหลายธุรกิจ</p>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <a href="https://gym-demo-five-plum.vercel.app/" target="_blank" class="portfolio-card-inner">
-                        <div class="portfolio-image">
-                            <img src="images/portfolio-gym.png" alt="Portfolio - Gym Website" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <span class="portfolio-category">Fitness & Health</span>
-                                <h3 data-i18n="portfolio_gym_title">Iron Core Fitness</h3>
-                                <p data-i18n="portfolio_gym_desc">เว็บไซต์ฟิตเนสสมัยใหม่
-                                    พร้อมระบบตารางเรียนและข้อมูลบริการ</p>
-                                <span class="view-project-btn">
-                                    <span data-i18n="portfolio_view_project">ดูโปรเจกต์จริง →</span>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
+            <div class="portfolio-slider-container">
+                <div class="portfolio-slider">
+                    <div class="portfolio-track" id="portfolioTrack">
+                        <!-- Dynamically generated items from script.js -->
+                    </div>
                 </div>
-                <div class="portfolio-card">
-                    <a href="https://cafe-demo-j2ji1jzn0-65332210054-6s-projects.vercel.app/th" target="_blank"
-                        class="portfolio-card-inner">
-                        <div class="portfolio-image">
-                            <img src="images/portfolio-cafe.png" alt="Portfolio - Cafe Website" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <span class="portfolio-category">Food & Beverage</span>
-                                <h3 data-i18n="portfolio_cafe_title">Artisanal Cafe</h3>
-                                <p data-i18n="portfolio_cafe_desc">เว็บไซต์ร้านกาแฟสไตล์มินิมอล
-                                    พร้อมเมนูอาหารและบรรยากาศร้าน</p>
-                                <span class="view-project-btn">
-                                    <span data-i18n="portfolio_view_project">ดูโปรเจกต์จริง →</span>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-card">
-                    <a href="https://itsm-1.pages.dev/welcome" target="_blank" class="portfolio-card-inner">
-                        <div class="portfolio-image">
-                            <img src="images/portfolio-itsm.png" alt="Portfolio - IT Management System" loading="lazy">
-                            <div class="portfolio-overlay">
-                                <span class="portfolio-category">Software System</span>
-                                <h3 data-i18n="portfolio_itsm_title">IT Management System</h3>
-                                <p data-i18n="portfolio_itsm_desc">ระบบบริหารจัดการไอที (ITSM Admin) สำหรับองค์กร</p>
-                                <span class="view-project-btn">
-                                    <span data-i18n="portfolio_view_project">ดูโปรเจกต์จริง →</span>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
+                
+                <!-- Slider Controls -->
+                <button class="slider-btn prev-btn" aria-label="Previous project">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button class="slider-btn next-btn" aria-label="Next project">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                
+                <div class="slider-dots" id="sliderDots">
+                    <!-- Dynamically generated dots -->
                 </div>
             </div>
         </div>
@@ -673,7 +646,7 @@
         </div>
     </div>
 
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=4"></script>
 </body>
 
 </html>

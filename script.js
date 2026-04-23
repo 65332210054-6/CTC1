@@ -16,6 +16,11 @@ function updateLanguage(lang) {
         }
     });
 
+    // Update dynamic portfolio content if it exists
+    if (document.getElementById('portfolioTrack')) {
+        renderPortfolio();
+    }
+
     // Update active button state
     langBtns.forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
@@ -35,7 +40,215 @@ langBtns.forEach(btn => {
 
 // Initialize language
 const savedLang = localStorage.getItem('preferredLang') || 'th';
-updateLanguage(savedLang);
+
+// ===== Portfolio Data & Slider =====
+const projectsData = [
+    {
+        id: 'gym',
+        image: 'images/portfolio-gym.png',
+        category: 'Fitness & Health',
+        titleKey: 'portfolio_gym_title',
+        descKey: 'portfolio_gym_desc',
+        link: 'https://gym-demo-five-plum.vercel.app/'
+    },
+    {
+        id: 'cafe',
+        image: 'images/portfolio-cafe.png',
+        category: 'Food & Beverage',
+        titleKey: 'portfolio_cafe_title',
+        descKey: 'portfolio_cafe_desc',
+        link: 'https://cafe-demo-j2ji1jzn0-65332210054-6s-projects.vercel.app/th'
+    },
+    {
+        id: 'itsm',
+        image: 'images/portfolio-itsm.png',
+        category: 'Software System',
+        titleKey: 'portfolio_itsm_title',
+        descKey: 'portfolio_itsm_desc',
+        link: 'https://itsm-1.pages.dev/welcome'
+    }
+];
+
+let currentSlide = 0;
+let itemsPerView = 3;
+
+function renderPortfolio() {
+    console.log('Rendering portfolio...');
+    const track = document.getElementById('portfolioTrack');
+    const dotsContainer = document.getElementById('sliderDots');
+    if (!track || !dotsContainer) {
+        console.error('Track or dots container not found!', { track, dotsContainer });
+        return;
+    }
+
+    const lang = localStorage.getItem('preferredLang') || 'th';
+    console.log('Current lang:', lang);
+
+    if (!translations[lang]) {
+        console.error('Translations for lang not found:', lang);
+        return;
+    }
+
+    // Render Cards
+    track.innerHTML = projectsData.map(project => {
+        console.log('Rendering project:', project.id);
+        return `
+            <div class="portfolio-card fade-in">
+                <a href="${project.link}" target="_blank" class="portfolio-card-inner">
+                    <div class="portfolio-image">
+                        <img src="${project.image}" alt="${translations[lang][project.titleKey]}" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-category">${project.category}</span>
+                            <h3>${translations[lang][project.titleKey]}</h3>
+                            <p>${translations[lang][project.descKey]}</p>
+                            <span class="view-project-btn">
+                                <span>${translations[lang]['portfolio_view_project']}</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        `;
+    }).join('');
+
+    // Re-observe new cards for fade-in effect
+    if (typeof observer !== 'undefined') {
+        track.querySelectorAll('.portfolio-card').forEach((el, i) => {
+            el.style.transitionDelay = `${(i % 6) * 0.1}s`;
+            observer.observe(el);
+            // Manually add visible class if already in view or just to test
+            setTimeout(() => el.classList.add('visible'), 100);
+        });
+    }
+
+    // Render Dots
+    updateItemsPerView();
+    const dotsCount = Math.max(0, projectsData.length - itemsPerView + 1);
+    console.log('Dots count:', dotsCount);
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < dotsCount; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('slider-dot');
+        if (i === currentSlide) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            currentSlide = i;
+            updateSlider();
+        });
+        dotsContainer.appendChild(dot);
+    }
+
+    updateSlider();
+}
+
+function updateItemsPerView() {
+    if (window.innerWidth < 768) {
+        itemsPerView = 1;
+    } else if (window.innerWidth < 1024) {
+        itemsPerView = 2;
+    } else {
+        itemsPerView = 3;
+    }
+}
+
+function updateSlider() {
+    const track = document.getElementById('portfolioTrack');
+    const dots = document.querySelectorAll('.slider-dot');
+    if (!track) return;
+
+    const gap = 30; // Matches CSS gap
+    const sliderWidth = track.parentElement.offsetWidth;
+    const cardWidth = (sliderWidth - (gap * (itemsPerView - 1))) / itemsPerView;
+    const move = currentSlide * (cardWidth + gap);
+
+    track.style.transform = `translateX(-${move}px)`;
+
+    // Update dots
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+
+    // Update buttons state
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    if (prevBtn && nextBtn) {
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide >= projectsData.length - itemsPerView;
+    }
+}
+
+
+
+// Initialize Slider Controls
+document.addEventListener('DOMContentLoaded', () => {
+    // renderPortfolio(); // Already called by updateLanguage
+
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < projectsData.length - itemsPerView) {
+                currentSlide++;
+                updateSlider();
+            }
+        });
+    }
+
+    // Touch Support
+    let startX = 0;
+    let isDragging = false;
+    const slider = document.querySelector('.portfolio-slider');
+
+    if (slider) {
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentSlide < projectsData.length - itemsPerView) {
+                    currentSlide++;
+                } else if (diff < 0 && currentSlide > 0) {
+                    currentSlide--;
+                }
+                updateSlider();
+                isDragging = false;
+            }
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+    }
+});
+
+window.addEventListener('resize', () => {
+    const oldItemsPerView = itemsPerView;
+    updateItemsPerView();
+    if (oldItemsPerView !== itemsPerView) {
+        // Recalculate dots and reset slide if needed
+        const dotsCount = Math.max(0, projectsData.length - itemsPerView + 1);
+        if (currentSlide >= dotsCount) currentSlide = Math.max(0, dotsCount - 1);
+        renderPortfolio();
+    } else {
+        updateSlider();
+    }
+});
+
 
 // ===== Navbar Scroll Effect =====
 const navbar = document.getElementById('navbar');
@@ -221,3 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Initial language update (called at the end to ensure all components are ready)
+updateLanguage(localStorage.getItem('preferredLang') || 'th');
