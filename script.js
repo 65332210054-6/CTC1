@@ -41,7 +41,7 @@ langBtns.forEach(btn => {
 // Initialize language
 const savedLang = localStorage.getItem('preferredLang') || 'th';
 
-// ===== Portfolio Data & Slider =====
+// ===== Portfolio Data & Infinite Circular Carousel =====
 const projectsData = [
     {
         id: 'gym',
@@ -69,185 +69,153 @@ const projectsData = [
     }
 ];
 
-let currentSlide = 0;
-let itemsPerView = 3;
+let currentSlide = 0;       // 0-based index into projectsData
+let isTransitioning = false;
+
+function getPeek() {
+    const vw = window.innerWidth;
+    if (vw < 640) return 32;
+    if (vw < 1024) return 80;
+    return Math.round(vw * 0.18); // ~18% each side → card ≈ 64% of viewport
+}
+
+// Build HTML for a single card
+function buildCardHTML(project, lang) {
+    const title     = translations[lang][project.titleKey];
+    const desc      = translations[lang][project.descKey];
+    const viewLabel = translations[lang]['portfolio_view_project'];
+    return `
+        <div class="portfolio-card visible">
+            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="portfolio-card-inner">
+                <div class="portfolio-image">
+                    <img src="${project.image}" alt="${title}" loading="eager">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">${project.category}</span>
+                        <h3>${title}</h3>
+                        <p>${desc}</p>
+                        <span class="view-project-btn">${viewLabel}</span>
+                    </div>
+                </div>
+            </a>
+        </div>`;
+}
 
 function renderPortfolio() {
-    console.log('Rendering portfolio...');
-    const track = document.getElementById('portfolioTrack');
-    const dotsContainer = document.getElementById('sliderDots');
-    if (!track || !dotsContainer) {
-        console.error('Track or dots container not found!', { track, dotsContainer });
-        return;
-    }
+    const track        = document.getElementById('portfolioTrack');
+    const navContainer = document.getElementById('portfolioNav');
+    if (!track || !navContainer) return;
 
     const lang = localStorage.getItem('preferredLang') || 'th';
-    console.log('Current lang:', lang);
+    if (!translations[lang]) return;
 
-    if (!translations[lang]) {
-        console.error('Translations for lang not found:', lang);
-        return;
-    }
+    const N = projectsData.length;
 
-    // Render Cards
-    track.innerHTML = projectsData.map(project => {
-        console.log('Rendering project:', project.id);
-        return `
-            <div class="portfolio-card fade-in">
-                <a href="${project.link}" target="_blank" class="portfolio-card-inner">
-                    <div class="portfolio-image">
-                        <img src="${project.image}" alt="${translations[lang][project.titleKey]}" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <span class="portfolio-category">${project.category}</span>
-                            <h3>${translations[lang][project.titleKey]}</h3>
-                            <p>${translations[lang][project.descKey]}</p>
-                            <span class="view-project-btn">
-                                <span>${translations[lang]['portfolio_view_project']}</span>
-                            </span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        `;
-    }).join('');
+    // Infinite loop layout:
+    // [clone of last card] [card 0] [card 1] ... [card N-1] [clone of first card]
+    // Real card i is at track index i+1
+    const cloneLast  = buildCardHTML(projectsData[N - 1], lang);
+    const realCards  = projectsData.map(p => buildCardHTML(p, lang)).join('');
+    const cloneFirst = buildCardHTML(projectsData[0], lang);
+    track.innerHTML  = cloneLast + realCards + cloneFirst;
 
-    // Re-observe new cards for fade-in effect
-    if (typeof observer !== 'undefined') {
-        track.querySelectorAll('.portfolio-card').forEach((el, i) => {
-            el.style.transitionDelay = `${(i % 6) * 0.1}s`;
-            observer.observe(el);
-            // Manually add visible class if already in view or just to test
-            setTimeout(() => el.classList.add('visible'), 100);
-        });
-    }
+    // Counter pill — always enabled (no disabled state, it's infinite)
+    navContainer.innerHTML = `
+        <div class="portfolio-counter-pill">
+            <button class="counter-btn counter-prev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <span class="counter-text">${currentSlide + 1} / ${N}</span>
+            <button class="counter-btn counter-next" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>`;
 
-    // Render Dots
-    updateItemsPerView();
-    const dotsCount = Math.max(0, projectsData.length - itemsPerView + 1);
-    console.log('Dots count:', dotsCount);
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < dotsCount; i++) {
-        const dot = document.createElement('button');
-        dot.classList.add('slider-dot');
-        if (i === currentSlide) dot.classList.add('active');
-        dot.addEventListener('click', () => {
-            currentSlide = i;
-            updateSlider();
-        });
-        dotsContainer.appendChild(dot);
-    }
-
-    updateSlider();
-}
-
-function updateItemsPerView() {
-    if (window.innerWidth < 768) {
-        itemsPerView = 1;
-    } else if (window.innerWidth < 1024) {
-        itemsPerView = 2;
-    } else {
-        itemsPerView = 3;
-    }
-}
-
-function updateSlider() {
-    const track = document.getElementById('portfolioTrack');
-    const dots = document.querySelectorAll('.slider-dot');
-    if (!track) return;
-
-    const gap = 30; // Matches CSS gap
-    const sliderWidth = track.parentElement.offsetWidth;
-    const cardWidth = (sliderWidth - (gap * (itemsPerView - 1))) / itemsPerView;
-    const move = currentSlide * (cardWidth + gap);
-
-    track.style.transform = `translateX(-${move}px)`;
-
-    // Update dots
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
+    navContainer.querySelector('.counter-prev').addEventListener('click', () => {
+        if (!isTransitioning) goToSlide(currentSlide - 1);
+    });
+    navContainer.querySelector('.counter-next').addEventListener('click', () => {
+        if (!isTransitioning) goToSlide(currentSlide + 1);
     });
 
-    // Update buttons state
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    if (prevBtn && nextBtn) {
-        prevBtn.disabled = currentSlide === 0;
-        nextBtn.disabled = currentSlide >= projectsData.length - itemsPerView;
-    }
+    // Initial position without animation
+    updateSlider(false);
 }
 
+// Navigate: virtualSlide can be -1 (→ clone of last) or N (→ clone of first)
+function goToSlide(virtualSlide) {
+    const N = projectsData.length;
+    isTransitioning = true;
+    currentSlide = virtualSlide;
+    updateSlider(true);
 
+    // After transition ends, snap to the real card without animation
+    setTimeout(() => {
+        if (currentSlide < 0) {
+            // Showing clone-of-last (track index 0) → snap to real last (track index N)
+            currentSlide = N - 1;
+            updateSlider(false);
+        } else if (currentSlide >= N) {
+            // Showing clone-of-first (track index N+1) → snap to real first (track index 1)
+            currentSlide = 0;
+            updateSlider(false);
+        }
+        isTransitioning = false;
+    }, 820); // slightly longer than the 800ms CSS transition
+}
 
-// Initialize Slider Controls
+function updateSlider(animate = true) {
+    const track = document.getElementById('portfolioTrack');
+    if (!track) return;
+
+    const N         = projectsData.length;
+    const vw        = window.innerWidth;
+    const gap       = 24;
+    const peek      = getPeek();
+    const cardWidth = vw - 2 * peek;
+
+    // Apply width to all cards including clones
+    track.querySelectorAll('.portfolio-card').forEach(card => {
+        card.style.flex = `0 0 ${cardWidth}px`;
+    });
+
+    // Track index: real card i → track index i+1 (clone-of-last is at index 0)
+    // Virtual slide -1 → track index 0 | slide N → track index N+1
+    const trackIndex = currentSlide + 1;
+    const move       = trackIndex * (cardWidth + gap) - peek;
+
+    track.style.transition = animate
+        ? 'transform 0.8s cubic-bezier(0.34, 1.25, 0.64, 1)'
+        : 'none';
+    track.style.transform = `translateX(${-move}px)`;
+
+    // Counter always shows 1-based real position
+    const displayIndex = ((currentSlide % N) + N) % N;
+    const counterText  = document.querySelector('.counter-text');
+    if (counterText) counterText.textContent = `${displayIndex + 1} / ${N}`;
+}
+
+// Touch swipe support + resize handler
 document.addEventListener('DOMContentLoaded', () => {
-    // renderPortfolio(); // Already called by updateLanguage
-
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlider();
-            }
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < projectsData.length - itemsPerView) {
-                currentSlide++;
-                updateSlider();
-            }
-        });
-    }
-
-    // Touch Support
-    let startX = 0;
-    let isDragging = false;
     const slider = document.querySelector('.portfolio-slider');
-
     if (slider) {
+        let startX = 0, isDragging = false;
         slider.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             isDragging = true;
-        });
-
+        }, { passive: true });
         slider.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentX = e.touches[0].clientX;
-            const diff = startX - currentX;
-
+            if (!isDragging || isTransitioning) return;
+            const diff = startX - e.touches[0].clientX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0 && currentSlide < projectsData.length - itemsPerView) {
-                    currentSlide++;
-                } else if (diff < 0 && currentSlide > 0) {
-                    currentSlide--;
-                }
-                updateSlider();
+                goToSlide(diff > 0 ? currentSlide + 1 : currentSlide - 1);
                 isDragging = false;
             }
-        });
-
-        slider.addEventListener('touchend', () => {
-            isDragging = false;
-        });
+        }, { passive: true });
+        slider.addEventListener('touchend', () => { isDragging = false; });
     }
 });
 
-window.addEventListener('resize', () => {
-    const oldItemsPerView = itemsPerView;
-    updateItemsPerView();
-    if (oldItemsPerView !== itemsPerView) {
-        // Recalculate dots and reset slide if needed
-        const dotsCount = Math.max(0, projectsData.length - itemsPerView + 1);
-        if (currentSlide >= dotsCount) currentSlide = Math.max(0, dotsCount - 1);
-        renderPortfolio();
-    } else {
-        updateSlider();
-    }
-});
+window.addEventListener('resize', () => { updateSlider(false); });
 
 
 // ===== Navbar Scroll Effect =====
@@ -277,10 +245,10 @@ const sections = document.querySelectorAll('section[id]');
 window.addEventListener('scroll', () => {
     const scrollY = window.scrollY + 120;
     sections.forEach(section => {
-        const top = section.offsetTop;
+        const top    = section.offsetTop;
         const height = section.offsetHeight;
-        const id = section.getAttribute('id');
-        const link = document.querySelector(`.nav-link[href="#${id}"]`);
+        const id     = section.getAttribute('id');
+        const link   = document.querySelector(`.nav-link[href="#${id}"]`);
         if (link) {
             link.classList.toggle('active', scrollY >= top && scrollY < top + height);
         }
@@ -290,14 +258,13 @@ window.addEventListener('scroll', () => {
 // ===== Counter Animation =====
 function animateCounters() {
     document.querySelectorAll('.stat-number[data-count]').forEach(counter => {
-        const target = parseInt(counter.dataset.count);
+        const target   = parseInt(counter.dataset.count);
         const duration = 2000;
         const startTime = performance.now();
-        
         function update(currentTime) {
-            const elapsed = currentTime - startTime;
+            const elapsed  = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
+            const eased    = 1 - Math.pow(1 - progress, 3);
             counter.textContent = Math.floor(eased * target);
             if (progress < 1) requestAnimationFrame(update);
         }
@@ -311,7 +278,6 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Animate counters when hero stats are visible
             if (entry.target.closest('.hero')) animateCounters();
             observer.unobserve(entry.target);
         }
@@ -320,7 +286,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Add fade-in to animated elements
 document.querySelectorAll(
-    '.service-card, .portfolio-card, .process-step, .testimonial-card, .about-content, .about-image, .contact-form, .contact-info, .cta-card, .hero-content, .hero-image'
+    '.service-card, .process-step, .testimonial-card, .about-content, .about-image, .contact-form, .contact-info, .cta-card, .hero-content, .hero-image'
 ).forEach((el, i) => {
     el.classList.add('fade-in');
     el.style.transitionDelay = `${(i % 6) * 0.1}s`;
@@ -338,29 +304,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== Contact Form — ส่งข้อมูลไปที่ Email ผ่าน FormSubmit.co =====
+// ===== Contact Form =====
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const form = this;
-    const btn = form.querySelector('button[type="submit"]');
+    const btn  = form.querySelector('button[type="submit"]');
     const lang = localStorage.getItem('preferredLang') || 'th';
     const originalText = btn.textContent;
-    
+
     btn.textContent = lang === 'en' ? 'Sending...' : 'กำลังส่ง...';
     btn.disabled = true;
     btn.style.opacity = '0.7';
 
-    // สร้าง JSON object จากข้อมูลในฟอร์ม
     const formData = new FormData(form);
     const jsonData = {};
     formData.forEach((value, key) => { jsonData[key] = value; });
 
     fetch(form.action, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(jsonData)
     })
     .then(response => response.json())
@@ -395,40 +357,28 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 // ===== Cookie Consent Banner =====
 document.addEventListener('DOMContentLoaded', () => {
     const cookieBanner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('accept-cookies');
-    
-    // Check if user has already accepted previously
+    const acceptBtn    = document.getElementById('accept-cookies');
+
     if (localStorage.getItem('cookiesAccepted') === 'true') {
-        if(typeof gtag === 'function') {
+        if (typeof gtag === 'function') {
             gtag('consent', 'update', {
-                'ad_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted',
-                'analytics_storage': 'granted'
+                'ad_storage': 'granted', 'ad_user_data': 'granted',
+                'ad_personalization': 'granted', 'analytics_storage': 'granted'
             });
         }
     }
 
     if (cookieBanner && acceptBtn) {
-        // Check if user has already accepted
         if (!localStorage.getItem('cookiesAccepted')) {
-            // Delay showing the banner for a better UX
-            setTimeout(() => {
-                cookieBanner.classList.remove('hidden');
-            }, 1000);
+            setTimeout(() => { cookieBanner.classList.remove('hidden'); }, 1000);
         }
-
         acceptBtn.addEventListener('click', () => {
             localStorage.setItem('cookiesAccepted', 'true');
             cookieBanner.classList.add('hidden');
-            
-            // Update GA consent when accepted
-            if(typeof gtag === 'function') {
+            if (typeof gtag === 'function') {
                 gtag('consent', 'update', {
-                    'ad_storage': 'granted',
-                    'ad_user_data': 'granted',
-                    'ad_personalization': 'granted',
-                    'analytics_storage': 'granted'
+                    'ad_storage': 'granted', 'ad_user_data': 'granted',
+                    'ad_personalization': 'granted', 'analytics_storage': 'granted'
                 });
             }
         });
