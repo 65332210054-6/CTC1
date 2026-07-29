@@ -65,7 +65,7 @@ const projectsData = [
         category: 'Software System',
         titleKey: 'portfolio_itsm_title',
         descKey: 'portfolio_itsm_desc',
-        link: 'https://1458ebb9.itsm-1.pages.dev/welcome'
+        link: 'https://itsm-1.pages.dev/welcome'
     }
 ];
 
